@@ -14,7 +14,7 @@ const isProd = !isDev
 
 const commonConfig = {
     devtool: "source-map",
-    entry: path.resolve(__dirname, 'src/app/index.tsx'),
+    entry: path.resolve(__dirname, 'src/app/app.tsx'),
     output: {
         filename: "js/[name].[hash].bundle.js",
         path: path.resolve(__dirname, 'dist'),
@@ -31,18 +31,17 @@ const commonConfig = {
                 ]
             },
             {
-                test: /\.css$/,
-                use:[
-                    MiniCssExtractPlugin.loader,
-                    "css-loader"
-                ]
-            },
-            {
-                test:/\.scss$/,
-                use:[
+                test: /\.scss$/,
+                loader: [
                     MiniCssExtractPlugin.loader,
                     "css-loader",
-                    "scss-loader"
+                    "sass-loader"
+                ]
+            }, {
+                test: /\.css$/,
+                loader: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader"
                 ]
             },
             {
