@@ -10,6 +10,12 @@ export const ADD_SECRET_MUTATION = gql`
     }
 `;
 
+export const PUT_DATA_MUTATION = gql`
+    mutation PutData($data: Array!) {
+        putData(data: $data) @client
+    }
+`;
+
 export const UPDATE_SECRET_MUTATION = gql`
     mutation UpdateSecret($id: Int!) {
       updateSecret(id: $id) @client
@@ -20,6 +26,14 @@ export const UPDATE_SECRET_MUTATION = gql`
 //TODO: cache type
 export const SecretsMutations = {
     updateSecret: (): Promise<null> => {
+        return null;
+    },
+    putData: (_: {}, {data}: { data: SecretsType[] }, {cache}: { cache: InMemoryCache }): Promise<null> => {
+        cache.writeData({
+            data: {
+                secrets: [...data]
+            }
+        });
         return null;
     },
     addSecret: (

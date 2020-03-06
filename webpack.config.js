@@ -79,7 +79,7 @@ const devConfig = {
         historyApiFallback: true,
         disableHostCheck: true,
         hot: true,
-        port: 8003,
+        port: 8004,
         stats: {
             normal: true
         }
