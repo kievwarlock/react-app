@@ -4,6 +4,8 @@ import {BrowserRouter} from "react-router-dom";
 import {Suspense} from "react";
 import client from "@/graphql/config"
 import {ApolloProvider} from "@apollo/react-hooks";
+import {DbProvider} from "@/app/DbContext"
+import SecretDatabase from "@/app/SecretDatabase"
 
 const Loader = () => (
     <div>
@@ -12,14 +14,21 @@ const Loader = () => (
 );
 
 export const App: React.FC = () => {
+    try {
+        SecretDatabase.initDefaultData();
+    } catch (e) {
+        alert(`Some error with database ${e}`);
+    }
 
     return (
         <ApolloProvider client={client}>
-            <BrowserRouter>
-                <Suspense fallback={<Loader/>}>
-                    <Layout/>
-                </Suspense>
-            </BrowserRouter>
+            <DbProvider value={SecretDatabase}>
+                <BrowserRouter>
+                    <Suspense fallback={<Loader/>}>
+                        <Layout/>
+                    </Suspense>
+                </BrowserRouter>
+            </DbProvider>
         </ApolloProvider>
     )
 };
