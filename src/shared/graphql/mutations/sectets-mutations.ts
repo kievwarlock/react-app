@@ -1,11 +1,18 @@
-import gql from 'graphql-tag';
-import {SecretsType, TypeNames} from "@/graphql/types"
-import {SECRETS_QUERY} from "@/graphql/queries/secretQueries"
+import gql from "graphql-tag";
+import {SecretType, TypeNames} from "../store/types"
+import {SECRETS_QUERY} from "../queries/secret-queries"
 import {generateUuid} from "@/shared/utils/utils";
+import {InMemoryCache} from "apollo-cache-inmemory";
 
 export const ADD_SECRET_MUTATION = gql`
     mutation AddSecret($name: String!, $password: String!) {
         addSecret(name: $name, password: $password) @client
+    }
+`;
+
+export const PUT_DATA_MUTATION = gql`
+    mutation PutData($data: Array!) {
+        putData(data: $data) @client
     }
 `;
 
@@ -15,21 +22,26 @@ export const UPDATE_SECRET_MUTATION = gql`
     }
 `;
 
-//TODO: validation
-//TODO: cache type
+export type ContextType = {
+    cache: InMemoryCache;
+};
+
 export const SecretsMutations = {
     updateSecret: (): Promise<null> => {
         return null;
     },
-    addSecret: (
-        _parent: {},
-        {name, password}: SecretsType,
-        // @ts-ignore
-        {cache}
-    ): Promise<null> => {
+    putData: (_: {}, {data}: { data: SecretType[] }, {cache}: { cache: InMemoryCache }): Promise<null> => {
+        cache.writeData({
+            data: {
+                secrets: [...data]
+            }
+        });
+        return null;
+    },
+    addSecret: (_: {}, {name, password}: SecretType, {cache}: ContextType): Promise<null> => {
         const {secrets = []} = cache.readQuery({query: SECRETS_QUERY});
 
-        if(!name || !password){
+        if (!name || !password) {
             throw new Error("VALIDATION ERROR");
         }
 

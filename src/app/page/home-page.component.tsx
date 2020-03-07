@@ -1,33 +1,36 @@
+import "./home-page.component.scss"
 import * as React from "react";
 import {NavLink} from "react-router-dom";
 import {Input} from "@/shared/components/form/input.component";
 import {useTranslation} from "react-i18next";
 import {useQuery, useMutation} from "@apollo/react-hooks";
-import {SECRETS_QUERY} from "@/graphql/queries/secretQueries";
-import {ADD_SECRET_MUTATION} from "@/graphql/mutations/sectetsMutations";
-import {SecretsType, StoreType} from "@/graphql/types";
-
+import {SECRETS_QUERY} from "@/shared/graphql/queries/secret-queries";
+import {ADD_SECRET_MUTATION} from "@/shared/graphql/mutations/sectets-mutations";
+import {SecretType, SecretsStoreType} from "@/shared/graphql/store/types";
+import {DbContext} from "@/shared/database/database-context";
+import SimpleCrypto from "simple-crypto-js";
 
 export const HomePage: React.FC = () => {
     const {t} = useTranslation();
-    const {data: secretData} = useQuery<StoreType>(SECRETS_QUERY);
+    const db = React.useContext(DbContext);
+    const crypto = new SimpleCrypto("my-key");
 
     const [secretName, setSecretName] = React.useState("");
     const [secretPassword, setSecretPassword] = React.useState("");
+    const {data: secretData} = useQuery<SecretsStoreType>(SECRETS_QUERY);
 
-    const addSecretOnCompleted= () => {
-        setSecretName("");
-        setSecretPassword("");
-    };
-
-    const [addSecret] = useMutation<SecretsType>(ADD_SECRET_MUTATION, {
+    const [addSecret] = useMutation<SecretType>(ADD_SECRET_MUTATION, {
         variables: {
             name: secretName,
             password: secretPassword
         },
-        onCompleted: addSecretOnCompleted
+        onCompleted: async () => {
+            setSecretName("");
+            setSecretPassword("");
+            const cryptedSecretsString = crypto.encrypt(secretData.secrets);
+            await db.updateSecret(cryptedSecretsString);
+        }
     });
-
 
     return (
         <div className="home-page">
@@ -65,13 +68,11 @@ export const HomePage: React.FC = () => {
             </div>
             <hr/>
             <br/>
-
             <div>{t("description.part2")}</div>
             <NavLink to="/">To Home page</NavLink>
             <br/>
             <NavLink to="/login">To Login page</NavLink>
             <hr/>
-
         </div>
     );
 };

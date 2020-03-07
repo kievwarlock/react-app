@@ -3,11 +3,15 @@ export enum RegisterPages {
     LOGIN = "Login",
 }
 
-export type appRoutesType = {
-    [key in keyof typeof RegisterPages]: { url: string }
+export type AppRouteType = {
+    url: string;
 };
 
-export const APP_ROUTES: appRoutesType = {
+export type AppRoutesType = {
+    [key in keyof typeof RegisterPages]: AppRouteType
+};
+
+export const APP_ROUTES: AppRoutesType = {
     HOME: {
         url: "/"
     },

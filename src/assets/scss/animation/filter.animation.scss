@@ -1,0 +1,27 @@
+@mixin filterAnimation($timeout: 0.3s) {
+    &--animation-enter {
+        opacity: 0.01;
+        transform: translateX(-100%);
+    }
+
+    &--animation-enter-active {
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity $timeout ease-in, transform $timeout ease-in;
+    }
+
+    &--animation-exit {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    &--animation-exit-active {
+        opacity: 0.01;
+        transform: translateX(100%);
+        transition: opacity $timeout ease-in, transform $timeout ease-in;
+    }
+
+    &--animation-exit-done {
+        display: none;
+    }
+}

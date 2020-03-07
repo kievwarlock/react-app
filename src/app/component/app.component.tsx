@@ -1,25 +1,20 @@
 import * as React from "react"
 import {Layout} from "./layout.component";
 import {BrowserRouter} from "react-router-dom";
-import {Suspense} from "react";
-import client from "@/graphql/config"
+import client from "@/shared/graphql/config"
 import {ApolloProvider} from "@apollo/react-hooks";
-
-const Loader = () => (
-    <div>
-        <div>loading...</div>
-    </div>
-);
+import {DbProvider} from "@/shared/database/database-context"
+import db from "@/shared/database/secret-database"
 
 export const App: React.FC = () => {
 
     return (
         <ApolloProvider client={client}>
-            <BrowserRouter>
-                <Suspense fallback={<Loader/>}>
+            <DbProvider value={db}>
+                <BrowserRouter>
                     <Layout/>
-                </Suspense>
-            </BrowserRouter>
+                </BrowserRouter>
+            </DbProvider>
         </ApolloProvider>
     )
 };

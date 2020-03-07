@@ -2,18 +2,20 @@ import {ApolloClient} from "apollo-client";
 import {InMemoryCache} from "apollo-cache-inmemory";
 import {typeDefs} from "./typeDefs";
 import {resolvers} from "./resolvers";
-import {Store} from "./Store";
+import {SecretStore} from "./store/secret-store";
 
 const cache = new InMemoryCache({
     freezeResults: true
 });
 
 cache.writeData({
-    data: Store,
+    data: {
+        ...SecretStore
+    },
 });
 
 export const client = new ApolloClient({
-    cache: cache,
+    cache,
     typeDefs,
     resolvers,
     assumeImmutableResults: true
