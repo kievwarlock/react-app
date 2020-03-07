@@ -33,7 +33,7 @@ class SecretDatabase extends Dexie {
                 await this.secret.add(this.defaultData);
             }
         } catch (e) {
-            alert('Some error with database');
+            alert("Some error with database");
         }
     };
 
