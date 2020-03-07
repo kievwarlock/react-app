@@ -1,4 +1,4 @@
-import {SecretsMutations} from "@/graphql/mutations/sectets-mutations";
+import {SecretsMutations} from "./mutations/sectets-mutations";
 
 export const resolvers = {
     Mutation: {

@@ -2,7 +2,7 @@ import {ApolloClient} from "apollo-client";
 import {InMemoryCache} from "apollo-cache-inmemory";
 import {typeDefs} from "./typeDefs";
 import {resolvers} from "./resolvers";
-import {SecretStore} from "@/graphql/store/secret-store";
+import {SecretStore} from "./store/secret-store";
 
 const cache = new InMemoryCache({
     freezeResults: true

@@ -1,17 +1,10 @@
 import * as React from "react"
 import {Layout} from "./layout.component";
 import {BrowserRouter} from "react-router-dom";
-import {Suspense} from "react";
-import client from "@/graphql/config"
+import client from "@/shared/graphql/config"
 import {ApolloProvider} from "@apollo/react-hooks";
-import {DbProvider} from "@/app/DbContext"
-import db from "@/app/SecretDatabase"
-
-const Loader = () => (
-    <div>
-        <div>loading...</div>
-    </div>
-);
+import {DbProvider} from "@/shared/database/database-context"
+import db from "@/shared/database/secret-database"
 
 export const App: React.FC = () => {
 
@@ -19,9 +12,7 @@ export const App: React.FC = () => {
         <ApolloProvider client={client}>
             <DbProvider value={db}>
                 <BrowserRouter>
-                    <Suspense fallback={<Loader/>}>
-                        <Layout/>
-                    </Suspense>
+                    <Layout/>
                 </BrowserRouter>
             </DbProvider>
         </ApolloProvider>

@@ -46,7 +46,9 @@ class SecretDatabase extends Dexie {
     };
 
     getSecret = async (): Promise<SecretDatabaseType> => {
-        return await this.secret.where({key: SecretDatabaseKey.SECRET}).first();
+        return await this.secret
+            .where({key: SecretDatabaseKey.SECRET})
+            .first();
     };
 
 }

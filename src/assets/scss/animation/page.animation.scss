@@ -1,0 +1,27 @@
+@mixin pageAnimation($timeout: 1s) {
+    &--animation-enter {
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        opacity: 0.01;
+    }
+
+    &--animation-enter-active {
+        opacity: 1;
+        transition: opacity $timeout ease-in;
+    }
+
+    &--animation-exit {
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        opacity: 1;
+    }
+
+    &--animation-exit-active {
+        opacity: 0.01;
+        transition: opacity $timeout ease-in;
+    }
+}

@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
-import {SecretType, TypeNames} from "@/graphql/store/types"
-import {SECRETS_QUERY} from "@/graphql/queries/secret-queries"
+import {SecretType, TypeNames} from "../store/types"
+import {SECRETS_QUERY} from "../queries/secret-queries"
 import {generateUuid} from "@/shared/utils/utils";
 import {InMemoryCache} from "apollo-cache-inmemory";
 

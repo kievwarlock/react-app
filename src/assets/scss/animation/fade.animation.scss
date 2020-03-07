@@ -1,0 +1,23 @@
+@mixin fadeMountAnimation($timeout: 1s) {
+    -webkit-backface-visibility: hidden;
+    transition: opacity $timeout;
+    opacity: 0;
+
+    &--animation-enter-done {
+        opacity: 1;
+    }
+}
+
+@mixin fadeAnimation($timeout: 1s) {
+    -webkit-backface-visibility: hidden;
+    transition: opacity $timeout;
+
+    &--animation-enter-active, &--animation-enter-done {
+        opacity: 1;
+    }
+
+    &--animation-exit-active,
+    &--animation-exit-done {
+        opacity: 0;
+    }
+}
