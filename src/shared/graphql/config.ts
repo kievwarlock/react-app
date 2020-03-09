@@ -1,6 +1,6 @@
 import {ApolloClient} from "apollo-client";
 import {InMemoryCache} from "apollo-cache-inmemory";
-import {typeDefs} from "./typeDefs";
+import {typeDefs} from "./type-defs";
 import {resolvers} from "./resolvers";
 import {SecretStore} from "./store/secret-store";
 
