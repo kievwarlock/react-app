@@ -12,7 +12,7 @@ export type SecretDatabaseType = {
 
 class SecretDatabase extends Dexie {
     secret: Dexie.Table<SecretDatabaseType, number>;
-    private versionStore: number = 1;
+    private versionStore: number = 2;
     private store = {
         secret: "++id,key,value"
     };
