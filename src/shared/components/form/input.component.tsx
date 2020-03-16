@@ -7,7 +7,7 @@ export type InputType = CommonProps & {
     value?: number | string;
     placeholder?: string;
     onClick?: () => void;
-    onChange?: (newValue: string) => void;
+    onChange?: (newValue: string ) => void;
 }
 
 export const Input: React.FC<InputType> = (

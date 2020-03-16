@@ -7,22 +7,23 @@ enum SecretDatabaseKey {
 export type SecretDatabaseType = {
     id?: number;
     key?: SecretDatabaseKey;
-    value: string
+    value: string;
 }
 
 class SecretDatabase extends Dexie {
     secret: Dexie.Table<SecretDatabaseType, number>;
-    defaultData: SecretDatabaseType = {
+    private versionStore: number = 2;
+    private store = {
+        secret: "++id,key,value"
+    };
+    private defaultData: SecretDatabaseType = {
         key: SecretDatabaseKey.SECRET,
         value: ""
     };
 
     constructor() {
         super("SecretDatabase");
-        this.version(2).stores({
-            secret: "++id,key,value"
-        });
-
+        this.version(this.versionStore).stores(this.store);
         this.initDefaultData();
     }
 
