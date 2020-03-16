@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development",
-    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "build": "cross-env NODE_ENV=production webpack --mode production"
   },
   "license": "ISC",
   "dependencies": {
@@ -26,7 +26,6 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "simple-crypto-js": "^2.2.0",
     "svg-inline-loader": "^0.8.0",
     "webpack-merge": "^4.2.2"
   },
@@ -58,7 +57,7 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5",
-    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   }

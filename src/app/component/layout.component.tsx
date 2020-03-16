@@ -7,13 +7,11 @@ import {useMutation} from "@apollo/react-hooks";
 import {SecretsStoreType} from "@/shared/graphql/store/types";
 import {PUT_DATA_MUTATION} from "@/shared/graphql/mutations/sectets-mutations";
 import {DbContext} from "@/shared/database/database-context";
-import SimpleCrypto from "simple-crypto-js";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {PageLoader} from "@/shared/components/page-loader.component";
 import {Suspense} from "react";
 
 export const Layout: React.FC = () => {
-    const crypto = new SimpleCrypto("my-key");
     const db = React.useContext(DbContext);
     const [putData] = useMutation<SecretsStoreType>(PUT_DATA_MUTATION);
     const location = useLocation();
@@ -24,7 +22,7 @@ export const Layout: React.FC = () => {
         if (secretDatabase.value) {
             await putData({
                 variables: {
-                    data: crypto.decrypt(secretDatabase.value, true)
+                    data: JSON.stringify(secretDatabase.value)
                 }
             });
         }
